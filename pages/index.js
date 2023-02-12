@@ -1,19 +1,57 @@
-import { useState } from 'react';
-import { Modal } from '../components';
-import { useRouter } from 'next/router';
+import { useState } from "react";
+import { Input, Modal } from "../components";
+import { useRouter } from "next/router";
+import { postData } from "../utils/service";
 
 export default function Home() {
   const router = useRouter();
   const [login, setLogin] = useState(false);
+  const [signup, setSignup] = useState(false);
+  const [newUserObject, setNewUserObject] = useState({
+    email: "",
+    password: "",
+    username: "",
+  });
   const startLogin = () => {
     setLogin(true);
   };
 
-  const handleLogin = () => {
-    setLogin(false);
-    router.push('/dashboard');
+  const handleLogin = async () => {
+    try {
+      const response = await postData("/auth/login", {
+        email: newUserObject.email,
+        password: newUserObject.password,
+      });
+      if (response.status == 200) {
+        window.localStorage.setItem(
+          "establish_app_user",
+          JSON.stringify(response.data)
+        );
+        router.push("/dashboard");
+      }
+    } catch (e) {
+      console.log("error", e);
+    }
   };
 
+  const handleSignup = async () => {
+    try {
+      const response = await postData("/auth/register", {
+        email: newUserObject.email,
+        password: newUserObject.password,
+        username: newUserObject.username,
+      });
+      if (response.status == 201) {
+        window.localStorage.setItem(
+          "establish_app_user",
+          JSON.stringify(response.data)
+        );
+        router.push("/dashboard");
+      }
+    } catch (e) {
+      console.log("error", e);
+    }
+  };
   return (
     <div className="bg-black min-h-screen px-5 text-white">
       <nav className="flex justify-between py-5">
@@ -24,7 +62,7 @@ export default function Home() {
         </div>
         <div>
           <button
-            onClick={startLogin}
+            onClick={() => setLogin(true)}
             className="text-base lg:text-xl made-gentle border border-white border-opacity-80 rounded-full py-2 px-6 hover:border-sunset"
           >
             Login
@@ -40,45 +78,118 @@ export default function Home() {
           helps you manage your to-dos, reading, and more in one place
         </p>
         <button
-          onClick={startLogin}
+          onClick={() => setSignup(true)}
           className="text-xl lg:text-3xl made-gentle border border-white border-opacity-80 rounded-full py-2 px-6 hover:border-sunset mt-6"
         >
           Sign Up
         </button>
       </div>
-      <Modal onClose={() => setLogin(false)} isVisible={login} title="Login">
+      <Modal
+        onClose={() => {
+          setSignup(false);
+          setNewUserObject({
+            email: "",
+            password: "",
+            username: "",
+          });
+        }}
+        isVisible={signup}
+        title="Login"
+      >
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            setLogin(false);
+            handleSignup();
+          }}
+          className="px-6 py-2"
+        >
+          <Input
+            onChange={(e) => {
+              setNewUserObject({
+                ...newUserObject,
+                username: e.target.value,
+              });
+            }}
+            autoComplete="off"
+            required={true}
+            type="text"
+            title={"username"}
+          />
+          <Input
+            onChange={(e) => {
+              setNewUserObject({
+                ...newUserObject,
+                email: e.target.value,
+              });
+            }}
+            autoComplete="off"
+            required={true}
+            type="email"
+            title={"email"}
+          />
+          <Input
+            onChange={(e) => {
+              setNewUserObject({
+                ...newUserObject,
+                password: e.target.value,
+              });
+            }}
+            autoComplete="off"
+            required={true}
+            type="password"
+            title={"password"}
+          />
+
+          <button className="w-full border hover:border-sunset border-black rounded-lg text-center made-gentle py-2">
+            Signup
+          </button>
+        </form>
+      </Modal>
+      <Modal
+        onClose={() => {
+          setLogin(false);
+          setNewUserObject({
+            email: "",
+            password: "",
+            username: "",
+          });
+        }}
+        isVisible={login}
+        title="Login"
+      >
         <form
           onSubmit={(e) => {
             e.preventDefault();
             setLogin(false);
             handleLogin();
           }}
-          className="px-6 py-2 text-black"
+          className="px-6 py-2"
         >
-          <div className="flex flex-col mb-4">
-            <label htmlFor="email" className="mb-1">
-              Email
-            </label>
-            <input
-              required
-              autoCorrect="off"
-              id="email"
-              type="text"
-              className="w-full bg-transparent border border-black border-opacity-10 rounded-lg py-2 px-4 focus:outline-none"
-            />
-          </div>
-          <div className="flex flex-col mb-6">
-            <label htmlFor="password" className="mb-1">
-              Password
-            </label>
-            <input
-              required
-              autoCorrect="off"
-              id="password"
-              type="password"
-              className="w-full bg-transparent border border-black border-opacity-10 rounded-lg py-2 px-4 focus:outline-none"
-            />
-          </div>
+          <Input
+            onChange={(e) => {
+              setNewUserObject({
+                ...newUserObject,
+                email: e.target.value,
+              });
+            }}
+            type="email"
+            required={true}
+            autoCorrect="off"
+            title={"email"}
+          />
+          <Input
+            onChange={(e) => {
+              setNewUserObject({
+                ...newUserObject,
+                password: e.target.value,
+              });
+            }}
+            required={true}
+            autoCorrect="off"
+            type={"password"}
+            title={"password"}
+          />
           <button className="w-full border hover:border-sunset border-black rounded-lg text-center made-gentle py-2">
             Login
           </button>

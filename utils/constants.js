@@ -1,0 +1,1 @@
+export const ACCESS_TOKEN_KEY = 'establish_app_access_token';
