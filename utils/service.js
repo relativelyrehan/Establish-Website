@@ -18,7 +18,7 @@ const client = axios.create({
 
 // Add tokens for every request if provided
 client.interceptors.request.use((config) => {
-    let accessToken = `bearer ${window.localStorage.getItem(ACCESS_TOKEN_KEY)}`;
+    let accessToken = `Bearer ${window.localStorage.getItem(ACCESS_TOKEN_KEY)}`;
     if (typeof window && window?.webengage) {
         let os = window?.webengage?.BrowserDetect?.os();
         let device_type = window?.webengage?.BrowserDetect?.device();
@@ -31,7 +31,7 @@ client.interceptors.request.use((config) => {
         config.headers['browser'] = browser || '';
     }
     if (accessToken) {
-        config.headers['Authorization'] = accessToken;
+        config.headers['x-auth-token'] = accessToken;
     }
     return Promise.resolve(config);
 });

@@ -14,7 +14,8 @@ module.exports = {
         sunset: "#EA7A53",
         skin: "#F5EBC9",
         lime: "#A7D672",
-        sky: "#99B7DD"
+        sky: "#99B7DD",
+        darkOne: "#222222"
       }
     },
   },

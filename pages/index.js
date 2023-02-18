@@ -1,54 +1,83 @@
-import { useState } from "react";
-import { Input, Modal } from "../components";
+import { useContext, useEffect, useState } from "react";
+import { BorderButton, Input, Modal } from "../components";
 import { useRouter } from "next/router";
 import { postData } from "../utils/service";
+import { ACCESS_TOKEN_KEY, ESTABLISH_USER } from "../utils/constants";
+import { StateContext } from "../utils/context/context";
+import { toast, Toaster } from "react-hot-toast";
 
 export default function Home() {
   const router = useRouter();
+  const [appState, dispatch] = useContext(StateContext);
   const [login, setLogin] = useState(false);
   const [signup, setSignup] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [newUserObject, setNewUserObject] = useState({
     email: "",
     password: "",
     username: "",
   });
-  const startLogin = () => {
-    setLogin(true);
-  };
+
+  useEffect(() => {
+    if (appState.isLogin) {
+      router.push("/dashboard");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleLogin = async () => {
     try {
+      setLoading(true);
+      toast.dismiss();
       const response = await postData("/auth/login", {
         email: newUserObject.email,
         password: newUserObject.password,
       });
       if (response.status == 200) {
         window.localStorage.setItem(
-          "establish_app_user",
-          JSON.stringify(response.data)
+          ESTABLISH_USER,
+          JSON.stringify(response.data.user)
         );
+        window.localStorage.setItem(ACCESS_TOKEN_KEY, response.data.token);
+        setLoading(false);
+        setLogin(false);
+        dispatch({ type: "LOGIN", value: true });
+        dispatch({ type: "USER", value: response.data.user })
         router.push("/dashboard");
+      } else if (response.status == 400) {
+        setLoading(false);
+        toast.error(response.data.message);
       }
     } catch (e) {
+      setLoading(false);
       console.log("error", e);
     }
   };
 
   const handleSignup = async () => {
     try {
+      setLoading(true);
       const response = await postData("/auth/register", {
         email: newUserObject.email,
         password: newUserObject.password,
         username: newUserObject.username,
       });
       if (response.status == 201) {
+        setLoading(false);
         window.localStorage.setItem(
-          "establish_app_user",
-          JSON.stringify(response.data)
+          ESTABLISH_USER,
+          JSON.stringify(response.data.user)
         );
+        window.localStorage.setItem(ACCESS_TOKEN_KEY, response.data.token);
+        dispatch({ type: "LOGIN", value: true });
+        dispatch({ type: "USER", value: response.data.user })
         router.push("/dashboard");
+      } else {
+        setLoading(false);
+        toast.error(response.data.message);
       }
     } catch (e) {
+      setLoading(false);
       console.log("error", e);
     }
   };
@@ -61,12 +90,7 @@ export default function Home() {
           </p>
         </div>
         <div>
-          <button
-            onClick={() => setLogin(true)}
-            className="text-base lg:text-xl made-gentle border border-white border-opacity-80 rounded-full py-2 px-6 hover:border-sunset"
-          >
-            Login
-          </button>
+          <BorderButton title={"Login"} onClick={() => setLogin(true)} />
         </div>
       </nav>
       <div className="h-[80vh] flex justify-center items-center flex-col">
@@ -77,12 +101,12 @@ export default function Home() {
           Establish your day effortlessly with the all-in-one solution that
           helps you manage your to-dos, reading, and more in one place
         </p>
-        <button
+        <BorderButton
+          title={"Sign Up"}
           onClick={() => setSignup(true)}
-          className="text-xl lg:text-3xl made-gentle border border-white border-opacity-80 rounded-full py-2 px-6 hover:border-sunset mt-6"
-        >
-          Sign Up
-        </button>
+          fontSize="text-xl lg:text-3xl"
+          containerClass={"mt-6"}
+        />
       </div>
       <Modal
         onClose={() => {
@@ -94,7 +118,7 @@ export default function Home() {
           });
         }}
         isVisible={signup}
-        title="Login"
+        title="Register"
       >
         <form
           onSubmit={(e) => {
@@ -104,46 +128,49 @@ export default function Home() {
           }}
           className="px-6 py-2"
         >
-          <Input
-            onChange={(e) => {
-              setNewUserObject({
-                ...newUserObject,
-                username: e.target.value,
-              });
-            }}
-            autoComplete="off"
-            required={true}
-            type="text"
-            title={"username"}
-          />
-          <Input
-            onChange={(e) => {
-              setNewUserObject({
-                ...newUserObject,
-                email: e.target.value,
-              });
-            }}
-            autoComplete="off"
-            required={true}
-            type="email"
-            title={"email"}
-          />
-          <Input
-            onChange={(e) => {
-              setNewUserObject({
-                ...newUserObject,
-                password: e.target.value,
-              });
-            }}
-            autoComplete="off"
-            required={true}
-            type="password"
-            title={"password"}
-          />
-
-          <button className="w-full border hover:border-sunset border-black rounded-lg text-center made-gentle py-2">
-            Signup
-          </button>
+          <div className="mb-6">
+            <Input
+              onChange={(e) => {
+                setNewUserObject({
+                  ...newUserObject,
+                  username: e.target.value,
+                });
+              }}
+              autoComplete="off"
+              required={true}
+              type="text"
+              title={"username"}
+            />
+          </div>
+          <div className="mb-6">
+            <Input
+              onChange={(e) => {
+                setNewUserObject({
+                  ...newUserObject,
+                  email: e.target.value,
+                });
+              }}
+              autoComplete="off"
+              required={true}
+              type="email"
+              title={"email"}
+            />
+          </div>
+          <div className="mb-6">
+            <Input
+              onChange={(e) => {
+                setNewUserObject({
+                  ...newUserObject,
+                  password: e.target.value,
+                });
+              }}
+              autoComplete="off"
+              required={true}
+              type="password"
+              title={"password"}
+            />
+          </div>
+          <BorderButton title={"Signup"} />
         </form>
       </Modal>
       <Modal
@@ -161,40 +188,43 @@ export default function Home() {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            setLogin(false);
+            // setLogin(false);
             handleLogin();
           }}
           className="px-6 py-2"
         >
-          <Input
-            onChange={(e) => {
-              setNewUserObject({
-                ...newUserObject,
-                email: e.target.value,
-              });
-            }}
-            type="email"
-            required={true}
-            autoCorrect="off"
-            title={"email"}
-          />
-          <Input
-            onChange={(e) => {
-              setNewUserObject({
-                ...newUserObject,
-                password: e.target.value,
-              });
-            }}
-            required={true}
-            autoCorrect="off"
-            type={"password"}
-            title={"password"}
-          />
-          <button className="w-full border hover:border-sunset border-black rounded-lg text-center made-gentle py-2">
-            Login
-          </button>
+          <div className="mb-6">
+            <Input
+              onChange={(e) => {
+                setNewUserObject({
+                  ...newUserObject,
+                  email: e.target.value,
+                });
+              }}
+              type="email"
+              required={true}
+              autoCorrect="off"
+              title={"email"}
+            />
+          </div>
+          <div className="mb-6">
+            <Input
+              onChange={(e) => {
+                setNewUserObject({
+                  ...newUserObject,
+                  password: e.target.value,
+                });
+              }}
+              required={true}
+              autoCorrect="off"
+              type={"password"}
+              title={"password"}
+            />
+          </div>
+          <BorderButton loading={loading} title={"Login"} />
         </form>
       </Modal>
+      <Toaster />
     </div>
   );
 }

@@ -1,33 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+
 @font-face {
-    font-family: 'Figtree-Regular';
-    font-style: normal;
-    font-weight: 400;
-    src: local(''), url('../public/fonts/Figtree-Regular.ttf') format('truetype');
-  }
-  
-  @font-face {
-    font-family: 'Figtree-SemiBold';
-    font-style: normal;
-    font-weight: 600;
-    src: local(''), url('../public/fonts/Figtree-SemiBold.ttf') format('truetype');
-  }
-  
-  @font-face {
-    font-family: 'Made-Gentle';
-    font-style: normal;
-    font-weight: 600;
-    src: local(''), url('../public/fonts/MADE-Gentle.otf') format('opentype');
-  }
+  font-family: "Made-Gentle";
+  font-style: normal;
+  font-weight: 600;
+  src: local(""), url("../public/fonts/MADE-Gentle.otf") format("opentype");
+}
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+
+
 .made-gentle {
-    font-family: 'Made-Gentle', cursive !important;
-  }
-  
-  * {
-    font-family: 'Figtree-Regular', Arial, Helvetica, sans-serif;
-  }
-  
+  font-family: "Made-Gentle", cursive !important;
+}
+
+* {
+  font-family: 'Inter', sans-serif;
+} 
+
+.gradient-bg {
+  background: rgb(2,0,36);
+background: radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(139,62,35,1) 100%);
+}
+
+/* Style the React Quill container */
+
+.quill {
+  height: 400px !important;
+  width:  100% !important;
+  margin-bottom: 72px !important;
+  border-radius: 8px !important;
+}
+
+.ql-editor {
+  letter-spacing: 0.04em !important;
+  font-size: 20px !important;
+  font-family: 'Inter', sans-serif;
+  color: rgba(255, 255, 255, 0.95) !important;
+}
+
+.ql-editor a {
+  color: #EA7A53 !important;
+}
+
+.ql-toolbar.ql-snow {
+  border: 1px solid rgba(255, 255, 255, 0.5) !important;
+  border-radius: 8px !important;
+}
+
+.ql-container.ql-snow {
+  margin-top: 4px !important;
+  border: 1px solid rgba(255, 255, 255, 0.5) !important;
+  border-radius: 8px !important;
+}
+
+.ql-picker-options {
+  background-color: black !important;
+  color: white !important;
+  margin-top: 12px !important;
+  border-radius: 8px !important;
+  border: 1px solid rgba(255, 255, 255, 0.5) !important;
+}
+
+.ql-tooltip.ql-editing {
+  background-color: black !important;
+  color: white !important;
+  border-radius: 8px !important;
+  border: 1px solid rgba(255, 255, 255, 0.5) !important;
+  padding: 8px !important;
+}
+
+.ql-tooltip.ql-editing input {
+  background-color: black !important;
+  color: white !important;
+  border-radius: 8px !important;
+  border: 1px solid rgba(255, 255, 255, 0.5) !important;
+}
+
+.ql-tooltip.ql-editing input:focus {
+  outline: none;
+}
+
+.ql-action {
+  color: #EA7A53 !important;
+}
+
+@media screen and (max-width: 768px) {
+  .quill {
+    height: 300px !important;
+    margin-bottom: 84px !important;
+  } 
+}
