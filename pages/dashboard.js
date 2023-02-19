@@ -56,13 +56,13 @@ export default function Dashboard() {
         return (
             <Layout>
                 <div className="mt-8 flex flex-wrap gap-4 justify-center">
-                    <div className="w-1/5 h-60 bg-gray-700 animate-pulse rounded-lg"></div>
-                    <div className="w-1/5 h-60 bg-gray-700 animate-pulse rounded-lg"></div>
-                    <div className="w-1/5 h-60 bg-gray-700 animate-pulse rounded-lg"></div>
-                    <div className="w-1/5 h-60 bg-gray-700 animate-pulse rounded-lg"></div>
-                    <div className="w-1/5 h-60 bg-gray-700 animate-pulse rounded-lg"></div>
-                    <div className="w-1/5 h-60 bg-gray-700 animate-pulse rounded-lg"></div>
-                    <div className="w-1/5 h-60 bg-gray-700 animate-pulse rounded-lg"></div>
+                    <div className="w-full lg:w-[30%] xl:w-1/5 h-60 bg-gray-700 animate-pulse rounded-lg"></div>
+                    <div className="w-full lg:w-[30%] xl:w-1/5 h-60 bg-gray-700 animate-pulse rounded-lg"></div>
+                    <div className="w-full lg:w-[30%] xl:w-1/5 h-60 bg-gray-700 animate-pulse rounded-lg"></div>
+                    <div className="w-full lg:w-[30%] xl:w-1/5 h-60 bg-gray-700 animate-pulse rounded-lg"></div>
+                    <div className="w-full lg:w-[30%] xl:w-1/5 h-60 bg-gray-700 animate-pulse rounded-lg"></div>
+                    <div className="w-full lg:w-[30%] xl:w-1/5 h-60 bg-gray-700 animate-pulse rounded-lg"></div>
+                    <div className="w-full lg:w-[30%] xl:w-1/5 h-60 bg-gray-700 animate-pulse rounded-lg"></div>
                 </div>
             </Layout>
         );
