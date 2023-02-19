@@ -22,6 +22,16 @@
   font-family: 'Inter', sans-serif;
 } 
 
+*::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+* {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
 .gradient-bg {
   background: rgb(2,0,36);
 background: radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(139,62,35,1) 100%);
