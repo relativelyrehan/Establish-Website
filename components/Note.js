@@ -1,15 +1,25 @@
-import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
-import parse from 'html-react-parser';
+import { AiOutlineDelete, AiOutlineEdit, AiTwotoneStar } from "react-icons/ai";
+import parse from "html-react-parser";
 import { hanldeTruncate } from "../utils/helpers";
+import { handleImportant } from "../utils/apis";
 
-export const Note = ({ key, remove, note, setRemove, handleDeleteNote, router }) => {
+export const Note = ({
+    key,
+    remove,
+    note,
+    setRemove,
+    handleDeleteNote,
+    router,
+    updater,
+    setUpdater,
+}) => {
     return (
         <div
             key={key}
             className="col-span-12 sm:col-span-6 lg:col-span-4 xl:col-span-3"
         >
             <div className="bg-sky cursor-pointer p-6 rounded-3xl max-h-96 h-auto">
-                {remove == key ? (
+                {remove == note?._id ? (
                     <div className="flex h-full justify-center items-center gap-5 flex-col">
                         <button
                             onClick={() => handleDeleteNote(note?._id)}
@@ -25,20 +35,37 @@ export const Note = ({ key, remove, note, setRemove, handleDeleteNote, router })
                         </button>
                     </div>
                 ) : null}
-                {remove != key ? (
+                {remove != note?._id ? (
                     <div className="h-full">
-                        <div className="flex gap-4 items-center justify-between h-full">
-                            <h1 className="text-xl made-gentle mb-2">{note.title}</h1>
+                        <div className="flex gap-4 items-center justify-between h-full mb-2">
+                            <h1 className="text-xl made-gentle mb-2 truncate">
+                                {note.title}
+                            </h1>
                             <div className="flex gap-4">
                                 <button
                                     onClick={() => {
-                                        router.push(`/create/note?edit=${note?._id}`)
+                                        // handleImportant(note?._id)
+                                        handleImportant(note?._id, !note?.important, note?.creator, setUpdater);
+                                    }}
+                                    className={""}
+                                >
+                                    <AiTwotoneStar
+                                        color={
+                                            note?.important &&
+                                            "#F5EBC9"
+                                        }
+                                        className="text-xl hover:text-purple-500"
+                                    ></AiTwotoneStar>
+                                </button>
+                                <button
+                                    onClick={() => {
+                                        router.push(`/create/note?edit=${note?._id}`);
                                     }}
                                     className={""}
                                 >
                                     <AiOutlineEdit className="text-xl hover:text-purple-500"></AiOutlineEdit>
                                 </button>
-                                <button onClick={() => setRemove(key)} className={""}>
+                                <button onClick={() => setRemove(note?._id)} className={""}>
                                     <AiOutlineDelete className="text-xl hover:text-red-400"></AiOutlineDelete>
                                 </button>
                             </div>
@@ -50,5 +77,5 @@ export const Note = ({ key, remove, note, setRemove, handleDeleteNote, router })
                 ) : null}
             </div>
         </div>
-    )
-}
+    );
+};
