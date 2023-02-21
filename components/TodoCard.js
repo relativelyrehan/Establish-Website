@@ -5,7 +5,7 @@ export const TodoCard = ({ data, removeTodo, setRemoveTodo, setUpdater, handleDe
     return (
         <div className="col-span-12 sm:col-span-6 lg:col-span-4 xl:col-span-3">
             {
-                removeTodo == data?._id ? <div className="bg-lime rounded-3xl p-5 flex flex-col justify-center items-center gap-5">
+                removeTodo == data?._id ? <div className="bg-lime rounded-lg p-5 flex flex-col justify-center items-center gap-5">
                     <button
                         onClick={() => handleDeleteTodo(data?._id)}
                         className="text-base lg:text-xl made-gentle border border-black border-opacity-80 rounded-full py-2 px-6 hover:border-sunset"
@@ -18,7 +18,7 @@ export const TodoCard = ({ data, removeTodo, setRemoveTodo, setUpdater, handleDe
                     >
                         Cancel
                     </button>
-                </div> : <div className="bg-lime rounded-3xl p-5">
+                </div> : <div className="bg-lime rounded-lg p-5">
                     <div className="flex justify-between items-center">
                         <h1 className="text-xl made-gentle">{data.title}</h1>
                         <div className="flex gap-4">

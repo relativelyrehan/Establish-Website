@@ -18,7 +18,7 @@ export const Note = ({
             key={key}
             className="col-span-12 sm:col-span-6 lg:col-span-4 xl:col-span-3"
         >
-            <div className="bg-sky cursor-pointer p-6 rounded-3xl max-h-96 h-auto">
+            <div className="bg-sky cursor-pointer p-6 rounded-lg max-h-96 h-auto">
                 {remove == note?._id ? (
                     <div className="flex h-full justify-center items-center gap-5 flex-col">
                         <button
@@ -59,7 +59,7 @@ export const Note = ({
                                 </button>
                                 <button
                                     onClick={() => {
-                                        router.push(`/create/note?edit=${note?._id}`);
+                                        router.push(`/notes/${note?._id}`);
                                     }}
                                     className={""}
                                 >

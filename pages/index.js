@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { BorderButton, Input, Modal } from "../components";
+import { BorderButton, BottomSheet, Input, Modal } from "../components";
 import { useRouter } from "next/router";
 import { postData } from "../utils/service";
 import { ACCESS_TOKEN_KEY, ESTABLISH_USER } from "../utils/constants";
@@ -224,6 +224,122 @@ export default function Home() {
           <BorderButton loading={loading} title={"Login"} />
         </form>
       </Modal>
+      <BottomSheet
+        onClose={() => {
+          setLogin(false);
+          setNewUserObject({
+            email: "",
+            password: "",
+            username: "",
+          });
+        }}
+        show={login}
+        title="Login"
+      >
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            // setLogin(false);
+            handleLogin();
+          }}
+          className="px-6 py-2 w-full"
+        >
+          <div className="mb-6">
+            <Input
+              onChange={(e) => {
+                setNewUserObject({
+                  ...newUserObject,
+                  email: e.target.value,
+                });
+              }}
+              type="email"
+              required={true}
+              autoCorrect="off"
+              title={"email"}
+            />
+          </div>
+          <div className="mb-6">
+            <Input
+              onChange={(e) => {
+                setNewUserObject({
+                  ...newUserObject,
+                  password: e.target.value,
+                });
+              }}
+              required={true}
+              autoCorrect="off"
+              type={"password"}
+              title={"password"}
+            />
+          </div>
+          <BorderButton loading={loading} title={"Login"} />
+        </form>
+      </BottomSheet>
+      <BottomSheet
+        onClose={() => {
+          setSignup(false);
+          setNewUserObject({
+            email: "",
+            password: "",
+            username: "",
+          });
+        }}
+        show={signup}
+        title="Register"
+      >
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            setLogin(false);
+            handleSignup();
+          }}
+          className="px-6 py-2 w-full"
+        >
+          <div className="mb-6">
+            <Input
+              onChange={(e) => {
+                setNewUserObject({
+                  ...newUserObject,
+                  username: e.target.value,
+                });
+              }}
+              autoComplete="off"
+              required={true}
+              type="text"
+              title={"username"}
+            />
+          </div>
+          <div className="mb-6">
+            <Input
+              onChange={(e) => {
+                setNewUserObject({
+                  ...newUserObject,
+                  email: e.target.value,
+                });
+              }}
+              autoComplete="off"
+              required={true}
+              type="email"
+              title={"email"}
+            />
+          </div>
+          <div className="mb-6">
+            <Input
+              onChange={(e) => {
+                setNewUserObject({
+                  ...newUserObject,
+                  password: e.target.value,
+                });
+              }}
+              autoComplete="off"
+              required={true}
+              type="password"
+              title={"password"}
+            />
+          </div>
+          <BorderButton title={"Signup"} />
+        </form>
+      </BottomSheet>
       <Toaster />
     </div>
   );

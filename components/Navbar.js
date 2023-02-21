@@ -12,7 +12,7 @@ export const Navbar = ({ setCreate }) => {
             <div className="flex gap-4">
                 {router.asPath?.includes('create') ? null : <button
                     onClick={() => setCreate(true)}
-                    className="text-base lg:text-xl made-gentle border border-white border-opacity-80 rounded-full py-2 px-6 hover:border-sunset"
+                    className="text-base lg:text-xl made-gentle border border-white border-opacity-80 rounded-full py-2 px-6 hover:border-sunset hidden lg:block"
                 >
                     Create
                 </button>}
@@ -26,6 +26,12 @@ export const Navbar = ({ setCreate }) => {
                     Logout
                 </button>
             </div>
+            {router.asPath?.includes('create') ? null : <button
+                onClick={() => setCreate(true)}
+                className="text-xl made-gentle border bg-sunset text-black rounded-full py-3 px-8 hover:border-sunset block lg:hidden fixed bottom-8 right-4 shadow-lg shadow-sunset"
+            >
+                Create
+            </button>}
         </nav>
     )
 }

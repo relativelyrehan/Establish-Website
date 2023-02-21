@@ -13,10 +13,9 @@ import { toast } from "react-hot-toast";
 
 export default function Create() {
     const router = useRouter();
-    const [appState, dispatch] = useContext(StateContext);
+    const [appState,] = useContext(StateContext);
     const [user, setUser] = useState({});
     const [type, setType] = useState("");
-    const [allTodo, setAllTodo] = useState([]);
     const [noteObject, setNoteObject] = useState({
         title: "",
         content: "",
@@ -64,50 +63,31 @@ export default function Create() {
             console.log("error", e);
         }
     };
-    const handleTodoSubmit = () => { };
     return (
         <Layout>
             <h1 className="text-center font-semibold text-3xl made-gentle">Create {type}</h1>
-            {type == "todo" ? (
-                <div>
-                    <Input title="Title" />
-                    <Input title="Description" />
-                    <button
-                        onClick={handleTodoSubmit}
-                        className="text-base lg:text-xl made-gentle border border-white border-opacity-80 rounded-full py-2 px-6 hover:border-sunset"
-                    >
-                        Add More
-                    </button>
+            <div className="mt-6 max-w-2xl mx-auto">
+                <div className="mb-6">
+                    <Input
+                        onChange={(e) => {
+                            setNoteObject({
+                                ...noteObject,
+                                title: e.target.value,
+                            });
+                        }}
+                        title="Title"
+                    />
                 </div>
-            ) : (
-                <></>
-            )}
-            {type == "note" ? (
-                <div className="mt-6 max-w-2xl mx-auto">
-                    <div className="mb-6">
-                        <Input
-                            onChange={(e) => {
-                                setNoteObject({
-                                    ...noteObject,
-                                    title: e.target.value,
-                                });
-                            }}
-                            title="Title"
-                        />
-                    </div>
 
-                    <p className="mb-1 capitalize made-gentle tracking-wider">Description</p>
-                    <ReactQuill placeholder="Start typing here" theme={'snow'} value={value} onChange={setValue} />
-                    <button
-                        onClick={handleNoteSubmit}
-                        className="text-base lg:text-xl made-gentle border border-white border-opacity-80 rounded-full py-2 px-6 hover:border-sunset"
-                    >
-                        Submit
-                    </button>
-                </div>
-            ) : (
-                <></>
-            )}
+                <p className="mb-1 capitalize made-gentle tracking-wider">Description</p>
+                <ReactQuill placeholder="Start typing here" theme={'snow'} value={value} onChange={setValue} />
+                <button
+                    onClick={handleNoteSubmit}
+                    className="text-base lg:text-xl made-gentle border border-white border-opacity-80 rounded-full py-2 px-6 hover:border-sunset"
+                >
+                    Submit
+                </button>
+            </div>
         </Layout>
     );
 }
