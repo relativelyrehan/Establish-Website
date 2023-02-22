@@ -1,10 +1,11 @@
-export const Input = ({ title, onChange, required, autoCorrect, type, className, value, disabled }) => {
+export const Input = ({ title, onChange, required, autoCorrect, type, className, value, disabled, placeholder }) => {
     return (
         <div className="flex flex-col">
             <label htmlFor={title} className="mb-1 capitalize made-gentle tracking-wider">
                 {title}
             </label>
             <input
+                placeholder={placeholder}
                 disabled={disabled}
                 value={value}
                 autoComplete="off"
