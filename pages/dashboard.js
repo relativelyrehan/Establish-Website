@@ -18,6 +18,7 @@ export default function Dashboard() {
     const [allNotes, setAllNotes] = useState([]);
     const [allTodos, setAllTodos] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [searchLoading, setSearchLoading] = useState(false);
     const [updater, setUpdater] = useState(0);
     const [search, setSearch] = useState("");
     const [focus, setFocus] = useState(false);
@@ -30,21 +31,21 @@ export default function Dashboard() {
             return;
         }
         try {
-            setLoading(true);
+            setSearchLoading(true);
             const response = await postData(`/posts/searchNotes/${appState?.user?._id}`, {
                 search: s
             });
             if (response.status == 200) {
                 setAllNotes(response.data.notes);
                 setAllTodos(response.data.todos);
-                setLoading(false);
+                setSearchLoading(false);
                 setFocus(true)
             } else if (response.status == 400) {
-                setLoading(false);
+                setSearchLoading(false);
                 toast.error(response.data.message);
             }
         } catch (e) {
-            setLoading(false);
+            setSearchLoading(false);
             console.log(e)
             toast.error('Something went wrong')
         }
