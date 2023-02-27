@@ -70,7 +70,7 @@ export const Note = ({
                                 </button>
                             </div>
                         </div>
-                        <p className="text-base tracking-wider h-full">
+                        <p onClick={() => router.push(`/notes/${note?._id}`)} className="text-base tracking-wider h-full">
                             {parse(hanldeTruncate(note?.content))}
                         </p>
                     </div>

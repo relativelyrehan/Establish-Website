@@ -50,6 +50,7 @@ export default function Home() {
       }
     } catch (e) {
       setLoading(false);
+      toast.error('Something went wrong')
       console.log("error", e);
     }
   };

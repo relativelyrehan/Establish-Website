@@ -1,13 +1,14 @@
 import { useRouter } from "next/router";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { StateContext } from "../utils/context/context";
-import { Layout, Note, Tab } from "../components";
-import { deleteData, getData } from "../utils/service";
+import { Input, Layout, Note, Tab } from "../components";
+import { deleteData, getData, postData } from "../utils/service";
 import { toast, Toaster } from "react-hot-toast";
 import Image from "next/image";
 import { Oval } from "react-loader-spinner";
 import { getAllNotes, handleGetTodos } from "../utils/apis";
 import { TodoCard } from "../components/TodoCard";
+import useDebounce from "../utils/hooks/debounce";
 export default function Dashboard() {
     const router = useRouter();
     const [appState] = useContext(StateContext);
@@ -18,6 +19,37 @@ export default function Dashboard() {
     const [allTodos, setAllTodos] = useState([]);
     const [loading, setLoading] = useState(false);
     const [updater, setUpdater] = useState(0);
+    const [search, setSearch] = useState("");
+    const [focus, setFocus] = useState(false);
+    const debounceValue = useDebounce(search, 500);
+
+    const handleSearch = async (s) => {
+        if (s == "") {
+            getAllNotes(setAllNotes, setLoading, appState?.user?._id, updater);
+            handleGetTodos(setAllTodos, setLoading, appState?.user?._id, updater);
+            return;
+        }
+        try {
+            setLoading(true);
+            const response = await postData(`/posts/searchNotes/${appState?.user?._id}`, {
+                search: s
+            });
+            if (response.status == 200) {
+                setAllNotes(response.data.notes);
+                setAllTodos(response.data.todos);
+                setLoading(false);
+                setFocus(true)
+            } else if (response.status == 400) {
+                setLoading(false);
+                toast.error(response.data.message);
+            }
+        } catch (e) {
+            setLoading(false);
+            console.log(e)
+            toast.error('Something went wrong')
+        }
+    }
+
 
     const handleDeleteNote = async (id) => {
         try {
@@ -52,6 +84,11 @@ export default function Dashboard() {
         }
     }, [appState, updater]);
 
+    useEffect(() => {
+        handleSearch(debounceValue);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [debounceValue])
+
     if (loading) {
         return (
             <Layout>
@@ -68,9 +105,14 @@ export default function Dashboard() {
         );
     }
 
+
+
     return (
         <Layout>
-            <Tab setSelectedTab={setSelectedTab} selectedTab={selectedTab} />
+            <div className="flex flex-col lg:flex-row gap-4 justify-between lg:items-center mt-8">
+                <Tab setSelectedTab={setSelectedTab} selectedTab={selectedTab} />
+                <Input autoFocus={focus} setValue={setSearch} value={search} onChange={e => setSearch(e.target.value)} placeholder={'Search Notes'} className="w-full lg:w-96" />
+            </div>
             <div className="mt-8 grid grid-cols-12 gap-4 text-black">
                 {[...allTodos, ...allNotes]?.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
                     ?.filter((i) => {

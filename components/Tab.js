@@ -1,6 +1,6 @@
 export const Tab = ({ setSelectedTab, selectedTab }) => {
     return (
-        <div className="w-full flex gap-4 mt-8 overflow-scroll">
+        <div className="w-full flex gap-4 overflow-scroll">
             <button
                 onClick={() => setSelectedTab("all")}
                 className={`text-base lg:text-xl made-gentle border border-white border-opacity-80 rounded-full py-2 px-6 hover:border-sunset ${selectedTab == "all" ? "bg-skin text-black" : ""
