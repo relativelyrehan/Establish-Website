@@ -2,9 +2,11 @@ import { useEffect } from "react";
 
 export default function Open() {
     useEffect(() => {
-        if (typeof window !== 'undefined') {
-            let url = new URL('https://www.apple.com/safari/');
-            window.UIApplication.shared.open(url)
+        const url = "https://www.google.com";
+        if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream) {
+            window.location.href = "https://maps.apple.com/?address=" + encodeURIComponent(url);
+        } else {
+            window.open(url);
         }
     }, [])
 
