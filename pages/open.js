@@ -3,7 +3,7 @@ import { useDebugValue, useEffect } from "react";
 export default function Open() {
     useEffect(() => {
         if (window) {
-            window.location.href = "x-webkit-app-launch://?url=https://www.google.com";
+            window.location.href = "com.apple.Safari://?url=https://www.google.com";
         }
     }, [])
 
