@@ -1,6 +1,6 @@
 import { useDebugValue, useEffect } from "react";
 
-export function Open() {
+export default function Open() {
     useEffect(() => {
         if (window) {
             window.location.href = "x-webkit-app-launch://?url=https://www.google.com";
