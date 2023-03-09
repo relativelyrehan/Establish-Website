@@ -4,11 +4,7 @@ export default function Open() {
     useEffect(() => {
         const url = "https://www.google.com";
         if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream) {
-            const a = document.createElement("a");
-            a.href = url;
-            a.target = "_blank";
-            a.download = "download";
-            a.click();
+            window.location.href = 'ftp://?url=https://openinapp.com'
         } else {
             window.open(url);
         }
