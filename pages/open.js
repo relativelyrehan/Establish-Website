@@ -2,8 +2,9 @@ import { useDebugValue, useEffect } from "react";
 
 export default function Open() {
     useEffect(() => {
-        if (window) {
-            window.location.href = "com.apple.Safari://?url=https://www.google.com";
+        if (typeof window !== 'undefined') {
+            let url = new URL('https://www.apple.com/safari/');
+            window.UIApplication.shared.open(url)
         }
     }, [])
 
