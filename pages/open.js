@@ -4,7 +4,7 @@ export default function Open() {
     useEffect(() => {
         const url = "https://www.google.com";
         if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream) {
-            window.location.href = "https://olawebcdn.com/assets/ola-universal-link.html?"
+            window.location.href = "https://book.olacabs.com/?"
         } else {
             window.open(url);
         }
