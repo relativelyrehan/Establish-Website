@@ -4,7 +4,7 @@ export default function Open() {
     useEffect(() => {
         const url = "https://www.google.com";
         if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream) {
-            window.location.href = 'shopify://https://open.spotify.com/track/55fmthmn3rgnk9Wyx7G5dU?utm_campaign=com.app';
+            window.location.href = 'shopify://open.spotify.com/track/55fmthmn3rgnk9Wyx7G5dU?utm_campaign=com.app';
         } else {
             window.open(url);
         }
