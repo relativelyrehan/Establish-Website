@@ -1,4 +1,3 @@
-import axios from "axios";
 import { NextSeo } from "next-seo";
 import { useEffect, useState } from "react";
 
@@ -50,7 +49,12 @@ export default function Open({ res }) {
 }
 
 export async function getServerSideProps() {
-    const res = await axios.get('https://redirection.linkpilot.app/api/v1/links/seo-data?slug=dqnz');
+    const res = await fetch('https://redirection.linkpilot.app/api/v1/links/seo-data?slug=dqnz', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
     return {
         props: {
             res
