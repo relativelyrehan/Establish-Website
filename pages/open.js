@@ -2,18 +2,18 @@ import { NextSeo } from "next-seo";
 import { useEffect, useState } from "react";
 
 export default function Open({ res }) {
-    // useEffect(() => {
-    //     if (typeof window !== "undefined") {
-    //         window.addEventListener('beforeunload', function (e) {
-    //             window.addEventListener("error", (event) => {
-    //                 window.location.href = "www.google.com"
-    //             });
-    //         });
-    //         // youtube.com/@thedaddork
-    //         window.location.href =
-    //             "vnd.youtube://youtube.com/@thedaddork";
-    //     }
-    // }, []);
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            window.addEventListener('beforeunload', function (e) {
+                window.addEventListener("error", (event) => {
+                    window.location.href = "vnd.youtube://youtu.be/GOphXkT1IEQ"
+                });
+            });
+            // youtube.com/@thedaddork
+            window.location.href =
+                "vnd.youtube://youtube.com/@thedaddork";
+        }
+    }, []);
 
     return (
         <>
@@ -48,7 +48,8 @@ export default function Open({ res }) {
     );
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps(ctx) {
+    console.log(ctx.query);
     const res = await fetch('https://redirection.linkpilot.app/api/v1/links/seo-data?slug=dqnz', {
         method: 'GET',
         headers: {
