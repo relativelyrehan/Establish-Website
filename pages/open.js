@@ -1,3 +1,4 @@
+import axios from "axios";
 import { NextSeo } from "next-seo";
 import { useEffect, useState } from "react";
 
@@ -11,7 +12,7 @@ export default function Open() {
 
     useEffect(() => {
         (async function getSEOData() {
-            const res = await getData('https://redirection.linkpilot.app/api/v1/links/seo-data?slug=dqnz');
+            const res = await axios.get('https://redirection.linkpilot.app/api/v1/links/seo-data?slug=dqnz');
             if (res.status === 200) {
                 console.log(res.data.data)
                 setSeoData({
