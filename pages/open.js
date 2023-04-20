@@ -8,8 +8,9 @@ export default function Open() {
                     window.location.href = "www.google.com"
                 });
             });
+            // youtube.com/@thedaddork
             window.location.href =
-                "vnd.youtube://@TalkingThrones";
+                "vnd.youtube://@thedaddork";
         }
     }, []);
 
