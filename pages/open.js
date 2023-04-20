@@ -6,7 +6,7 @@ export default function Open({ res }) {
         if (typeof window !== "undefined") {
             window.addEventListener('beforeunload', function (e) {
                 window.addEventListener("error", (event) => {
-                    window.location.href = "vnd.youtube://youtu.be/GOphXkT1IEQ"
+                    window.location.href = "snssdk1233://@makaihsantii?_t=8bexOiluK6t&_r=1"
                 });
             });
             // youtube.com/@thedaddork
