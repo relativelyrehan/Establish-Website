@@ -2,9 +2,7 @@ import axios from "axios";
 import { NextSeo } from "next-seo";
 import { useEffect, useState } from "react";
 
-export default function Open() {
-    const res = axios.get('https://redirection.linkpilot.app/api/v1/links/seo-data?slug=dqnz');
-
+export default function Open({ res }) {
     // useEffect(() => {
     //     if (typeof window !== "undefined") {
     //         window.addEventListener('beforeunload', function (e) {
@@ -49,4 +47,13 @@ export default function Open() {
             </div>
         </>
     );
+}
+
+export async function getServerSideProps() {
+    const res = await axios.get('https://redirection.linkpilot.app/api/v1/links/seo-data?slug=dqnz');
+    return {
+        props: {
+            res
+        }
+    }
 }
