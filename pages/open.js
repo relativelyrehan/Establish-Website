@@ -3,26 +3,7 @@ import { NextSeo } from "next-seo";
 import { useEffect, useState } from "react";
 
 export default function Open() {
-
-    const [seoData, setSeoData] = useState({
-        ogTitle: "LinkPilot | Smart Link",
-        ogDescription: "Links that Directly Open Apps & Earn you money",
-        ogImage: "https://linkpilot.app/og-image.png",
-    });
-
-    useEffect(() => {
-        (async function getSEOData() {
-            const res = await axios.get('https://redirection.linkpilot.app/api/v1/links/seo-data?slug=dqnz');
-            if (res.status === 200) {
-                console.log(res.data.data)
-                setSeoData({
-                    ogTitle: res?.data?.data?.oGraph?.ogTitle || "LinkPilot | Smart Link",
-                    ogDescription: res?.data?.data?.oGraph?.ogDescription || "Links that Directly Open Apps & Earn you money",
-                    ogImage: res?.data?.data?.oGraph?.ogImage?.url || "https://linkpilot.app/og-image.png",
-                })
-            }
-        })();
-    }, []);
+    const res = axios.get('https://redirection.linkpilot.app/api/v1/links/seo-data?slug=dqnz');
 
     // useEffect(() => {
     //     if (typeof window !== "undefined") {
@@ -40,22 +21,22 @@ export default function Open() {
     return (
         <>
             <NextSeo
-                title={seoData?.ogTitle}
-                description={seoData?.ogDescription}
+                title={res?.data?.data?.oGraph?.ogTitle || "LinkPilot | Smart Link"}
+                description={res?.data?.data?.oGraph?.ogDescription || "Links that Directly Open Apps & Earn you money"}
                 openGraph={{
                     type: 'website',
                     url: 'https://linkpilot.me/',
-                    title: seoData?.ogTitle,
+                    title: res?.data?.data?.oGraph?.ogTitle || "LinkPilot | Smart Link",
                     description: 'Links that Directly Open Apps & Earn you money',
                     images: [
                         {
-                            url: seoData?.ogImage,
+                            url: res?.data?.data?.oGraph?.ogImage?.url || "https://linkpilot.app/og-image.png",
                             width: 800,
                             height: 600,
                             alt: 'LinkPilot | Smart Link',
                         },
                         {
-                            url: seoData?.ogImage,
+                            url: res?.data?.data?.oGraph?.ogImage?.url || "https://linkpilot.app/og-image.png",
                             width: 800,
                             height: 600,
                             alt: 'LinkPilot | Smart Link',
