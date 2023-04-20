@@ -18,22 +18,22 @@ export default function Open({ res }) {
     return (
         <>
             <NextSeo
-                title={res?.data?.data?.oGraph?.ogTitle || "LinkPilot | Smart Link"}
-                description={res?.data?.data?.oGraph?.ogDescription || "Links that Directly Open Apps & Earn you money"}
+                title={res?.oGraph?.ogTitle || "LinkPilot | Smart Link"}
+                description={res?.oGraph?.ogDescription || "Links that Directly Open Apps & Earn you money"}
                 openGraph={{
                     type: 'website',
                     url: 'https://linkpilot.me/',
-                    title: res?.data?.data?.oGraph?.ogTitle || "LinkPilot | Smart Link",
+                    title: res?.oGraph?.ogTitle || "LinkPilot | Smart Link",
                     description: 'Links that Directly Open Apps & Earn you money',
                     images: [
                         {
-                            url: res?.data?.data?.oGraph?.ogImage?.url || "https://linkpilot.app/og-image.png",
+                            url: res?.oGraph?.ogImage?.url || "https://linkpilot.app/og-image.png",
                             width: 800,
                             height: 600,
                             alt: 'LinkPilot | Smart Link',
                         },
                         {
-                            url: res?.data?.data?.oGraph?.ogImage?.url || "https://linkpilot.app/og-image.png",
+                            url: res?.oGraph?.ogImage?.url || "https://linkpilot.app/og-image.png",
                             width: 800,
                             height: 600,
                             alt: 'LinkPilot | Smart Link',
@@ -54,10 +54,10 @@ export async function getServerSideProps() {
         headers: {
             'Content-Type': 'application/json',
         },
-    });
+    }).then((res) => res.json());
     return {
         props: {
-            res
+            res: res?.data
         }
     }
 }
