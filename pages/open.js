@@ -10,7 +10,7 @@ export default function Open() {
             });
             // youtube.com/@thedaddork
             window.location.href =
-                "vnd.youtube://@thedaddork";
+                "vnd.youtube://youtube.com/@thedaddork";
         }
     }, []);
 
