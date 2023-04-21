@@ -43,7 +43,7 @@ export default function Open({ res }) {
                     ],
                 }}
             />
-            <a ref={openLink} href="https://youtube.com" target="_blank" rel="noreferrer"></a>
+            <a ref={ref} href="https://youtube.com" target="_blank" rel="noreferrer"></a>
             <div className="flex h-screen w-full bg-black items-center justify-center">
                 <h1 className="text-white text-4xl">Redirecting...</h1>
             </div>
