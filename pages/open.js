@@ -4,13 +4,11 @@ import { useEffect, useState } from "react";
 export default function Open({ res }) {
     useEffect(() => {
         if (typeof window !== "undefined") {
-            // window.addEventListener('beforeunload', function (e) {
-            //     window.addEventListener("error", (event) => {
-            //         window.location.href = "snssdk1233://@makaihsantii?_t=8bexOiluK6t&_r=1"
-            //     });
-            // });
-            // youtube.com/@thedaddork
-            window.location.href = "vnd.youtube://www.youtube.com/channel/UC9X8Eld3DePX2qb12YNIz2Q?_t=8bexOiluK6t&_r=1";
+            try {
+                window.location.href = "vnd.youtube://www.youtube.com/channel/UC9X8Eld3DePX2qb12YNIz2Q?_t=8bexOiluK6t&_r=1";
+            } catch (e) {
+                alert(JSON.stringify(e));
+            }
         }
     }, []);
 
