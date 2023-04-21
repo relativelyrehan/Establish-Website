@@ -4,7 +4,13 @@ import { useEffect, useState } from "react";
 export default function Open({ res }) {
     useEffect(() => {
         if (typeof window !== "undefined") {
-            window.onerror = () => {
+            window.onerror = function (message, url, lineNumber) {
+                console.error("Error: " + message + " at " + url + ":" + lineNumber);
+                handleCustomError();
+            }
+
+            function handleCustomError() {
+                // code to handle the error goes here
                 window.location.href = "https://www.youtube.com/channel/UC9X8Eld3DePX2qb12YNIz2Q?_t=8bexOiluK6t&_r=1";
             }
             try {
