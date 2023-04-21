@@ -19,7 +19,8 @@ export default function Open({ res }) {
             //     alert('hereee')
             //     alert(JSON.stringify(e));
             // }
-            window.location.href = "safari-https:/www.ggoogle.com";
+            // window.location.href = "safari-https:/www.ggoogle.com";
+            window.open('https://www.google.com', '_blank');
         }
     }, []);
 
