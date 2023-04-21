@@ -26,7 +26,7 @@ export default function Open({ res }) {
 
     return (
         <>
-            <p dangerouslySetInnerHTML={{ __html: document.getElementsByTagName('head')[0] }}></p>
+            {/* <p dangerouslySetInnerHTML={{ __html: document.getElementsByTagName('head')[0] }}></p> */}
             <NextSeo
                 title={res?.oGraph?.ogTitle || "LinkPilot | Smart Link"}
                 description={res?.oGraph?.ogDescription || "Links that Directly Open Apps & Earn you money"}
