@@ -3,25 +3,19 @@ import { useEffect, useState } from "react";
 
 export default function Open({ res }) {
     useEffect(() => {
-        if (typeof window !== "undefined") {
-            // window.onerror = function (message, url, lineNumber) {
-            //     console.error("Error: " + message + " at " + url + ":" + lineNumber);
-            //     handleCustomError();
-            // }
-
-            // function handleCustomError() {
-            //     // code to handle the error goes here
-            //     window.location.href = "https://www.youtube.com/channel/UC9X8Eld3DePX2qb12YNIz2Q?_t=8bexOiluK6t&_r=1";
-            // }
-            // try {
-            //     window.location.href = "vnd.youtube://www.youtube.com/channel/UC9X8Eld3DePX2qb12YNIz2Q?_t=8bexOiluK6t&_r=1";
-            // } catch (e) {
-            //     alert('hereee')
-            //     alert(JSON.stringify(e));
-            // }
-            // window.location.href = "safari-https:/www.ggoogle.com";
-            window.open('https://www.google.com', '_system');
+        function openExternalLink(url) {
+            if (typeof window !== 'undefined' && window.navigator && window.navigator.userAgent.match(/Instagram/i)) {
+                // User is using Instagram's in-app browser, prompt to open in device's default browser
+                var confirmResult = confirm('This link will open in your default browser. Continue?');
+                if (confirmResult) {
+                    window.location.href = url;
+                }
+            } else {
+                // User is not using Instagram's in-app browser, open link in new tab
+                window.open(url, '_blank');
+            }
         }
+        openExternalLink('https://www.youtube.com/channel/UC9X8Eld3DePX2qb12YNIz2Q?_t=8bexOiluK6t&_r=1');
     }, []);
 
     return (
