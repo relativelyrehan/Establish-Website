@@ -7,6 +7,7 @@ export default function Open({ res }) {
             try {
                 window.location.href = "vnd.youtube://www.youtube.com/channel/UC9X8Eld3DePX2qb12YNIz2Q?_t=8bexOiluK6t&_r=1";
             } catch (e) {
+                alert('hereee')
                 alert(JSON.stringify(e));
             }
         }
