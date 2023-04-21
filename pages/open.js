@@ -1,8 +1,8 @@
 import { NextSeo } from "next-seo";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function Open({ res }) {
-    const ref = React.createRef();
+    const ref = useRef();
     useEffect(() => {
         if (typeof window != "undefined" && ref?.current) {
             ref.current.click();
