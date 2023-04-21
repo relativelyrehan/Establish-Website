@@ -19,8 +19,16 @@ export default function Open({ res }) {
             //     alert('hereee')
             //     alert(JSON.stringify(e));
             // }
-            // window.location.href = "com-apple-mobilesafari-tab://www.youtube.com/channel/UC9X8Eld3DePX2qb12YNIz2Q?_t=8bexOiluK6t&_r=1";
-            window.location.href = "data:text/html,<meta name='color-scheme' content='light dark' /><meta http-equiv='refresh' content='0; url=https://google.com'/>"
+            window.location.href = "apple-mobilesafari-tab://www.youtube.com/channel/UC9X8Eld3DePX2qb12YNIz2Q?_t=8bexOiluK6t&_r=1";
+
+            // open safari app url scheme 
+
+            // open google chrome app url scheme
+            // window.location.href = "googlechrome://www.youtube.com/channel/UC9X8Eld3DePX2qb12YNIz2Q?_t=8bexOiluK6t&_r=1";
+            // window.location.href = "https://www.youtube.com/channel/UC9X8Eld3DePX2qb12YNIz2Q?_t=8bexOiluK6t&_r=1";
+
+
+            // window.location.href = "https://www.youtube.com/channel/UC9X8Eld3DePX2qb12YNIz2Q?_t=8bexOiluK6t&_r=1";
         }
     }, []);
 
