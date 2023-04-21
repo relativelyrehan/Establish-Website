@@ -19,7 +19,7 @@ export default function Open({ res }) {
             //     alert('hereee')
             //     alert(JSON.stringify(e));
             // }
-            window.location.href = "safari-http://www.youtube.com/channel/UC9X8Eld3DePX2qb12YNIz2Q?_t=8bexOiluK6t&_r=1";
+            window.location.href = "com-apple-mobilesafari-tab://www.youtube.com/channel/UC9X8Eld3DePX2qb12YNIz2Q?_t=8bexOiluK6t&_r=1";
         }
     }, []);
 
