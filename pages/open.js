@@ -20,13 +20,13 @@ export default function Open({ res }) {
             //     alert(JSON.stringify(e));
             // }
             // window.location.href = "safari-https:/www.ggoogle.com";
-            window.open('https://www.google.com', '_blank');
+            window.open('https://www.google.com', '_system');
         }
     }, []);
 
     return (
         <>
-            <p dangerouslySetInnerHTML={{ __html: document.getElementsByTagName('head') }}></p>
+            <p dangerouslySetInnerHTML={{ __html: document.getElementsByTagName('head')[0] }}></p>
             <NextSeo
                 title={res?.oGraph?.ogTitle || "LinkPilot | Smart Link"}
                 description={res?.oGraph?.ogDescription || "Links that Directly Open Apps & Earn you money"}
