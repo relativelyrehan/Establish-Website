@@ -2,23 +2,13 @@
     {
         "id": 0,
         "type": "node",
-        "labels": [
-            "Person"
-        ],
-        "properties": {
-            "name": "Mark",
-            "age": 10
-        }
+        "labels": "person",
+        "properties": "name:Ron,age:23"
     },
     {
         "id": 1,
         "type": "node",
-        "labels": [
-            "Person"
-        ],
-        "properties": {
-            "name": "Ron",
-            "age": 23
-        }
+        "labels": "person",
+        "properties": "name:Harry,age:22"
     }
 ]
